@@ -251,6 +251,7 @@
       options._timeout = setTimeout(function () {  xhr.abort('timeout'); }, options.timeout);
     }
 
+    triggerSendEvent();
     xhr.send();
 
     if (xhr.readyState && !options.ignorePush) {
@@ -398,6 +399,15 @@
       cancelable: true
     });
 
+    window.dispatchEvent(e);
+  };
+
+  var triggerSendEvent = function () {
+    var e = new CustomEvent('push_send', {
+      detail: {},
+      bubbles: true,
+      cancelable: true
+    });
     window.dispatchEvent(e);
   };
 
